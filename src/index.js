@@ -4,13 +4,14 @@ import './index.css';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux'
+import reduxThunk from 'redux-thunk'
 import { createStore, applyMiddleware, compose } from 'redux'
 import reducers from './reducers'
 
 const composedEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const store = createStore(
   reducers,
-  composedEnhancers(applyMiddleware()))
+  composedEnhancers(applyMiddleware(reduxThunk)))
 
 ReactDOM.render(
 
