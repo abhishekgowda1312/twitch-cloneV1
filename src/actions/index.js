@@ -1,5 +1,7 @@
 import { SIGN_IN, SIGN_OUT, CREATE_STREAM, DELETE_STREAM, EDIT_STREAM, FETCH_STREAMS, FETCH_STREAM } from './types'
 import streams from '../apis/streams'
+import history from '../history'
+
 
 //? action creators
 
@@ -24,6 +26,11 @@ export const createStream = formValues => async (dispatch, getState) => {
         type: CREATE_STREAM,
         payload: response.data
     })
+
+    //!Do some programmatic navigation to 
+    //! get the user back to the root route
+    //window.history.go(-1) //?not the best way to do it
+    history.push('/')
 }
 
 export const fetchStreams = () => async dispatch => {

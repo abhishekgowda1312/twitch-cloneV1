@@ -8,7 +8,7 @@ const StreamList = ({ fetchStreams, streams, currentUserId, isSignedIn }) => {
 
     useEffect(() => {
         fetchStreams()
-    }, [])
+    }, [fetchStreams])
 
     const renderAdmin = (stream) => {
         if (stream.userId === currentUserId) {
