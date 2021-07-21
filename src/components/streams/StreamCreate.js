@@ -3,9 +3,10 @@ import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 import { createStream } from '../../actions'
 
-const StreamCreate = ({ handleSubmit, createStream }) => {
 
-    const renderError = ({ error, touched }) => {
+class StreamCreate extends React.Component {
+
+    renderError({ error, touched }) {
         if (touched && error) {
             return (
                 <div className="ui error message">
@@ -14,29 +15,31 @@ const StreamCreate = ({ handleSubmit, createStream }) => {
             )
         }
     }
-    const renderInput = ({ input, label, meta }) => {
+    renderInput = ({ input, label, meta }) => {
         const className = `field ${meta.error && meta.touched ? 'error' : ''}`
         return (
             <div className={className} >
                 <label>{label}    </label>
-                <input type="text" {...input} autoComplete="off" />
-                {renderError(meta)}
+                <input  {...input} autoComplete="off" />
+                {this.renderError(meta)}
             </div>
         )
     }
-    const onSubmit = formValues => {
+    onSubmit(formValues) {
         createStream(formValues)
     }
 
 
+    render() {
+        return (
+            <form className="ui form error" onSubmit={this.props.handleSubmit(this.onSubmit)}>
+                <Field label="Enter Title" name="title" component={this.renderInput} />
+                <Field label="Enter Description" name="description" component={this.renderInput} />
+                <button className="ui button primary" >Submit</button>
+            </form>
+        )
+    }
 
-    return (
-        <form className="ui form error" onSubmit={handleSubmit(onSubmit)}>
-            <Field label="Enter Title" name="title" component={renderInput} />
-            <Field label="Enter Description" name="description" component={renderInput} />
-            <button className="ui button primary" >Submit</button>
-        </form>
-    )
 }
 
 const validate = formValues => {
